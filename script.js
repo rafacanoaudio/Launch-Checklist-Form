@@ -26,9 +26,9 @@ window.addEventListener("load", function() {
 
    // add event handler for when button clicked
 
-   button.addEventListener("click", function(event) {
-      let pilotName = String(document.querySelector("input[name=pilotName]"));
-      let copilotName = String(document.querySelector("input[name=copilotName]"));
+   form.addEventListener("submit", function(event) {
+      let pilotName = document.querySelector("input[name=pilotName]");
+      let copilotName = document.querySelector("input[name=copilotName]");
       let fuelLevel = document.querySelector("input[name=fuelLevel]");
       let cargoMass = document.querySelector("input[name=cargoMass]");
       if (pilotName.value === "" || copilotName.value === "" || fuelLevel.value === "" || cargoMass.value === "") {
