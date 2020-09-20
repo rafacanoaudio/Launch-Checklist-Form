@@ -37,14 +37,14 @@ window.addEventListener("load", function() {
          event.preventDefault();
       }
       //CONTINUE HERE: ADDING ALERTS FOR INVALID INPUT TYPES****************
-      // if (!isNan (pilotName)) {
-      //    alert(pilotName.value + " is not a valid Pilot Name.");
-      //    event.preventDefault();
-      // }
-      // if(!isNan (copilotName)) {
-      //    alert(copilotName.value + " is not a valid Co-pilot Name.");
-      //    event.preventDefault();
-      // }
+      if (Number(pilotName.value)) {
+         alert(pilotName.value + " is not a valid Pilot Name.");
+         event.preventDefault();
+      }
+      if(Number(copilotName.value)) {
+         alert(copilotName.value + " is not a valid Co-pilot Name.");
+         event.preventDefault();
+      }
       // if (typeof pilotName.value != "string") {
       //    alert(pilotName.value + " is not a valid Pilot Name.");
       //    event.preventDefault();
@@ -68,22 +68,37 @@ window.addEventListener("load", function() {
       let copilot = document.querySelector("#copilotStatus");
       copilot.innerHTML =`Co-pilot ${copilotName.value} is ready for launch.`;
 
-      if (fuelLevel.value < 10000) {
+      if (fuelLevel.value < 10000 && cargoMass.value > 10000) {
          let lowFuel = document.querySelector("#fuelStatus");
          lowFuel.innerHTML = "Fuel level too low for launch!"
+         let overCargo = document.querySelector("#cargoStatus");
+         overCargo.innerHTML = "Cargo exceeds allowed weight!"
          let launchStatus = document.querySelector("#launchStatus");
          launchStatus.innerHTML = "Shuttle not ready for launch";
          launchStatus.style.color = "red";
-        } 
-        else if (cargoMass.value > 10000) {
-           let overCargo = document.querySelector("#cargoStatus");
-           overCargo.innerHTML = "Cargo exceeds allowed weight!"
-           let launchStatus = document.querySelector("#launchStatus");
-            launchStatus.innerHTML = "Shuttle not ready for launch";
-            launchStatus.style.color = "red";
-
-        } else {
+      } else if (fuelLevel.value < 10000 && cargoMass.value <= 10000) {
+         let lowFuel = document.querySelector("#fuelStatus");
+         lowFuel.innerHTML = "Fuel level too low for launch!"
+         let overCargo = document.querySelector("#cargoStatus");
+         overCargo.innerHTML = "Cargo mass low enough for launch"
          let launchStatus = document.querySelector("#launchStatus");
+         launchStatus.innerHTML = "Shuttle not ready for launch";
+         launchStatus.style.color = "red";
+      } else if (cargoMass.value > 10000 && fuelLevel.value >= 10000) {
+         let overCargo = document.querySelector("#cargoStatus");
+         overCargo.innerHTML = "Cargo exceeds allowed weight!"
+         let lowFuel = document.querySelector("#fuelStatus");
+         lowFuel.innerHTML = "Fuel level high enough for launch"
+         let launchStatus = document.querySelector("#launchStatus");
+         launchStatus.innerHTML = "Shuttle not ready for launch";
+         launchStatus.style.color = "red";
+
+        } else if (fuelLevel.value >= 10000 && cargoMass.value <= 10000) {
+         let launchStatus = document.querySelector("#launchStatus");
+         let overCargo = document.querySelector("#cargoStatus");
+         overCargo.innerHTML = "Cargo mass low enough for launch"
+         let lowFuel = document.querySelector("#fuelStatus");
+         lowFuel.innerHTML = "Fuel level high enough for launch"
          launchStatus.innerHTML = "Shuttle ready for launch";
          launchStatus.style.color = "green";
         }
